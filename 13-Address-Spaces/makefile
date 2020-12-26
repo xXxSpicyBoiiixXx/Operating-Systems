@@ -6,5 +6,5 @@ clean:
 va: va.c 
 	gcc -o va va.c -Wall
 
-memory-user: 
+memory-user: memory-user.c
 	gcc -o memory-user memory-user.c -Wall
