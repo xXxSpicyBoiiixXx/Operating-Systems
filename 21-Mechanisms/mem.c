@@ -39,4 +39,33 @@ int main(int argc, char *argv[]) {
 		int loop_count = 0;
 		double bandwidthSum = 0;
 		while(1){
-			x[k++] += 1; 
+			x[k++] += 1;
+
+		if(k == num_ints){
+		double delta_time = Time_GetSeconds() - t;
+		time_since_last_print += delta_time;
+		double bandwidth = size_in_bytes / (1024.0*1024.0*delta_time);
+		bandwidthSum += bandwidth;
+
+		// Only print every 0.2 seconds 
+		if(time_since_last_print >= 0.2){
+		printf("loop %d in %.2f ms (bandwidth: %.2f MB/s)\n", loop_count, 1000* delta_time, bandwidth);
+		time_since_last_print = 0;
+		}
+	if(loop_count >9){
+	break;
+	}
+
+	else {
+	k = 0;
+	t = Time_GetSeconds();
+	loop_count++;
+	}
+		}
+		}
+	free(x);
+	printf("Average bandwidth: %.2f\n\n", bandwidthSum / loop_count);
+	}
+return 0;
+}
+
